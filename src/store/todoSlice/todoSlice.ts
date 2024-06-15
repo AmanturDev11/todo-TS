@@ -23,7 +23,13 @@ export const todoSlice = createSlice({
 				item.id === payload.id ? { ...item, title: payload.title } : item
 			);
 		},
+		completedTodo: (state, { payload }: PayloadAction<number>) => {
+			state.todos = state.todos.map((item) =>
+				item.id === payload ? { ...item, isCompleted: !item.isCompleted } : item
+			);
+		},
 	},
 });
 
-export const { addTodo, deleteTodo, deleteAll, editTodo } = todoSlice.actions;
+export const { addTodo, deleteTodo, deleteAll, editTodo, completedTodo } =
+	todoSlice.actions;
