@@ -1,3 +1,72 @@
+// import { Box, Button, TextField, Typography } from "@mui/material";
+// import { Todo as TypeTodo } from "../types";
+// import { useDispatch } from "react-redux";
+// import {
+// 	completedTodo,
+// 	deleteTodo,
+// 	editTodo,
+// } from "../store/todoSlice/todoSlice";
+// import { ChangeEvent, useState } from "react";
+
+// const Todo = (props: TypeTodo) => {
+// 	const { title, id, isCompleted, date } = props;
+// 	const dispatch = useDispatch();
+// 	const [openEdit, setOpenEdit] = useState<boolean>(false);
+// 	const [edit, setEdit] = useState<string>(title);
+// 	const [editDate, setEditDate] = useState<Date>(date);
+
+// 	const handleDelete = () => dispatch(deleteTodo(id));
+
+// 	const handleOpenEdit = () => setOpenEdit((prev) => !prev);
+// 	const handleEditTodo = (e: ChangeEvent<HTMLInputElement>) =>
+// 		setEdit(e.target.value);
+
+// 	const handleEditDate = (e: ChangeEvent<HTMLInputElement>) =>
+// 		setEditDate(e.target.value);
+// 	const handleSaveEdit = () => {
+// 		const newData: TypeTodo = {
+// 			id,
+// 			title: edit,
+// 			date: editDate,
+// 			isCompleted,
+// 		};
+// 		setEdit("");
+// 		// setEditDate("");
+// 		dispatch(editTodo(newData));
+// 		setOpenEdit(false);
+// 	};
+
+// 	const handleCompleted = () => dispatch(completedTodo(id));
+
+// 	return (
+// 		<Box>
+// 			{openEdit ? (
+// 				<Box>
+// 					<TextField onChange={handleEditTodo} value={edit} />
+// 					<TextField onChange={handleEditDate} value={editDate} type="date" />
+// 					<Button onClick={handleSaveEdit}>save</Button>
+// 					<Button onClick={handleOpenEdit}>cansel</Button>
+// 				</Box>
+// 			) : (
+// 				<>
+// 					<Typography
+// 						sx={{ textDecoration: isCompleted ? "line-through" : "" }}>
+// 						{title}
+// 					</Typography>
+// 					<Typography sx={{ textDecoration: isCompleted ? "line-through" : "" }}>{date}</Typography>
+// 					<Button onClick={handleDelete}>Delete</Button>
+// 					<Button onClick={handleOpenEdit}>Edit</Button>
+// 					<Button onClick={handleCompleted}>
+// 						{isCompleted ? "unCompleted" : "completed"}
+// 					</Button>
+// 				</>
+// 			)}
+// 		</Box>
+// 	);
+// };
+
+// export default Todo;
+
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Todo as TypeTodo } from "../types";
 import { useDispatch } from "react-redux";
@@ -9,11 +78,11 @@ import {
 import { ChangeEvent, useState } from "react";
 
 const Todo = (props: TypeTodo) => {
-	const { title, id, isCompleted } = props;
+	const { title, id, isCompleted, date } = props;
 	const dispatch = useDispatch();
 	const [openEdit, setOpenEdit] = useState<boolean>(false);
 	const [edit, setEdit] = useState<string>(title);
-	// const [editDate, setEditDate] = useState<number>(date);
+	const [editDate, setEditDate] = useState<string>(date); // Keep date as string
 
 	const handleDelete = () => dispatch(deleteTodo(id));
 
@@ -21,17 +90,16 @@ const Todo = (props: TypeTodo) => {
 	const handleEditTodo = (e: ChangeEvent<HTMLInputElement>) =>
 		setEdit(e.target.value);
 
-	// const handleEditDate = (e: ChangeEvent<HTMLInputElement>) =>
-	// 	setEditDate(e.target.value);
+	const handleEditDate = (e: ChangeEvent<HTMLInputElement>) =>
+		setEditDate(e.target.value);
+
 	const handleSaveEdit = () => {
 		const newData: TypeTodo = {
 			id,
 			title: edit,
-			// date: editDate,
+			date: editDate,
 			isCompleted,
 		};
-		setEdit("");
-		// setEditDate("");
 		dispatch(editTodo(newData));
 		setOpenEdit(false);
 	};
@@ -43,9 +111,9 @@ const Todo = (props: TypeTodo) => {
 			{openEdit ? (
 				<Box>
 					<TextField onChange={handleEditTodo} value={edit} />
-					{/* <TextField onChange={handleEditDate} value={editDate} type="date" /> */}
-					<Button onClick={handleSaveEdit}>save</Button>
-					<Button onClick={handleOpenEdit}>cansel</Button>
+					<TextField onChange={handleEditDate} value={editDate} type="date" />
+					<Button onClick={handleSaveEdit}>Save</Button>
+					<Button onClick={handleOpenEdit}>Cancel</Button>
 				</Box>
 			) : (
 				<>
@@ -53,11 +121,15 @@ const Todo = (props: TypeTodo) => {
 						sx={{ textDecoration: isCompleted ? "line-through" : "" }}>
 						{title}
 					</Typography>
-					{/* <Typography>{date}</Typography> */}
+					<Typography
+						sx={{ textDecoration: isCompleted ? "line-through" : "" }}>
+						{date}
+					</Typography>
+					{/* Convert to Date for display */}
 					<Button onClick={handleDelete}>Delete</Button>
 					<Button onClick={handleOpenEdit}>Edit</Button>
 					<Button onClick={handleCompleted}>
-						{isCompleted ? "unCompleted" : "completed"}
+						{isCompleted ? "Uncomplete" : "Complete"}
 					</Button>
 				</>
 			)}

@@ -1,3 +1,39 @@
+// import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+// import { Todo, TodosState } from "../../types";
+
+// const initialState: TodosState = {
+// 	todos: [],
+// };
+
+// export const todoSlice = createSlice({
+// 	name: "todo",
+// 	initialState,
+// 	reducers: {
+// 		addTodo: (state, { payload }: PayloadAction<Todo>) => {
+// 			state.todos.push(payload);
+// 		},
+// 		deleteTodo: (state, { payload }: PayloadAction<number>) => {
+// 			state.todos = state.todos.filter((item) => item.id !== payload);
+// 		},
+// 		deleteAll: (state) => {
+// 			state.todos = [];
+// 		},
+// 		editTodo: (state, { payload }: PayloadAction<Todo>) => {
+// 			state.todos = state.todos.map((item) =>
+// 				item.id === payload.id ? { ...item, title: payload.title } : item
+// 			);
+// 		},
+// 		completedTodo: (state, { payload }: PayloadAction<number>) => {
+// 			state.todos = state.todos.map((item) =>
+// 				item.id === payload ? { ...item, isCompleted: !item.isCompleted } : item
+// 			);
+// 		},
+// 	},
+// });
+
+// export const { addTodo, deleteTodo, deleteAll, editTodo, completedTodo } =
+// 	todoSlice.actions;
+
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Todo, TodosState } from "../../types";
 
@@ -20,7 +56,9 @@ export const todoSlice = createSlice({
 		},
 		editTodo: (state, { payload }: PayloadAction<Todo>) => {
 			state.todos = state.todos.map((item) =>
-				item.id === payload.id ? { ...item, title: payload.title } : item
+				item.id === payload.id
+					? { ...item, title: payload.title, date: payload.date }
+					: item
 			);
 		},
 		completedTodo: (state, { payload }: PayloadAction<number>) => {
@@ -33,3 +71,5 @@ export const todoSlice = createSlice({
 
 export const { addTodo, deleteTodo, deleteAll, editTodo, completedTodo } =
 	todoSlice.actions;
+
+// export default todoSlice.reducer;

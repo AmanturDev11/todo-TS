@@ -1,12 +1,9 @@
-import React from "react";
-import TodoForm from "./components/TodoForm";
-import TodoList from "./components/TodoList";
+import Layout from "./components/layout/Layout";
 
 const App = () => {
 	return (
 		<div>
-			<TodoForm />
-			<TodoList />
+			<Layout />
 		</div>
 	);
 };
